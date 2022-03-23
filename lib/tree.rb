@@ -19,19 +19,13 @@ class Tree
   end
 
   # Returns the last node in the list.
-  def tail
-    i = 1
-    current = head
-    until current.next.nil?
-      current = current.next
-      i += 1
-    end
+  def tail(current = head)
+    current = current.next until current.next.nil?
     current
   end
 
   # Represents the #each method but it works with linked list, not arrays.
-  def linked_list_each
-    current = head
+  def linked_list_each(current = head)
     until current.next.nil?
       yield(current) if block_given?
       current = current.next
@@ -44,25 +38,26 @@ class Tree
     tail.next = Node.new(value)
   end
 
-  # Returns true if the passed in value is in the list and otherwise returns false.
-  def contains?(value)
-    current = head
+  # Returns true if the passed in value is in the list otherwise returns false.
+  def contains?(value, current = head)
     return true if value == current.value
 
-    while !current.next.nil? && current = current.next
+    until current.next.nil?
+      current = current.next
       return true if value == current.value
     end
     false
   end
 
   # Returns the node, or nil if not found.
-  def find(value)
-    current = head
+  def find(value, current = head)
     return current if value == current.value
 
-    while !current.next.nil? && current = current.next
+    until current.next.nil?
+      current = current.next
       return current if value == current.value
     end
     nil
   end
 end
+ 
